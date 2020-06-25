@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 
-from parser import string_to_datetime
+from src.parser import string_to_datetime
 
 OLD_ISSUE_DAYS = 14
 OLD_PULLS_DAYS = 30

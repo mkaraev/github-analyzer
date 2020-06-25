@@ -4,7 +4,7 @@ from datetime import datetime
 
 def get_parser():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--url", dest="url", type=str, help="Github repository url")
+    parser.add_argument("--url", dest="url", type=str, required=True, help="Github repository url")
     parser.add_argument("--since", dest="since", type=str,
                         help="Date from which analyzing should be done. Format YYYY-MM-DD.")
     parser.add_argument("--until", dest="until", type=str,

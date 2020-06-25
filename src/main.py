@@ -1,7 +1,5 @@
-import github
-import parser
-import filters
-from parser import parse_url, get_parser
+from src import filters, github, parser
+from src.parser import parse_url, get_parser
 
 
 def commits_stats(owner, repo, branch, since, until):
