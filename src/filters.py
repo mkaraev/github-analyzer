@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+import functools
 
 from src.parser import string_to_datetime
 
@@ -15,6 +16,18 @@ def get_most_active_authors(commits, n):
             author_commits[login] = cnt
 
     return sorted(list(author_commits.items()), key=lambda x: x[1], reverse=True)[:n]
+
+
+def apply_filters(filters):
+    def decorator(f):
+        def inner(*args, **kwargs):
+            applier = filter_applier_fabric(filters)
+            result = f(*args, **kwargs)
+            return applier(result)
+
+        return inner
+
+    return decorator
 
 
 def filter_applier_fabric(filters):
@@ -52,12 +65,3 @@ def range_filter_fabric(since, until):
         return True
 
     return filter_
-
-
-def state_filer_fabric(state):
-    def filter_(item):
-        return state == item["state"]
-
-    return filter_
-
-

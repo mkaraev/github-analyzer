@@ -6,10 +6,18 @@ PULLS_URL = f"{BASE_URL}/pulls"
 ISSUES_URL = f"{BASE_URL}/issues"
 
 
+class RateLimitException(Exception):
+    pass
+
+
 def getter_fabric(url_pattern: str):
     def get_data(*args, **kwargs):
         url = url_pattern.format(owner=args[0], repo=args[1])
-        data = requests.get(url=url, params=kwargs).json()
+        response = requests.get(url=url, params=kwargs)
+        if response.status_code != 200:
+            raise RateLimitException(response.json()["message"])
+
+        data = response.json()
         return data
 
     return get_data
