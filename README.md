@@ -5,7 +5,7 @@
 Simple github analyzer.
 
 For given repo and branch retrieves:
-* Most active contibutors for given time range
+* Most active contributors for given time range
 * Number of opened/closed pulls which created in given time range
 * Number of "old" pulls which created in given time range
 * Number of opened/closed issues which created in given time range
@@ -86,12 +86,15 @@ python main.py --url=https://github.com/OpenDiablo2/OpenDiablo2
 ```
 
 ## Project structure
+
 ```
+main.py           - main module
 src
 ├── __init__.py
+├── analyzer.py   - anylyzer module
 ├── filters.py    - filters that can be applied
 ├── github.py     - github api client
-├── main.py       - main module
 └── parser.py     - module with different parsers
+
 ```
 

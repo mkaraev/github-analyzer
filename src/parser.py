@@ -18,7 +18,6 @@ def get_parser():
 def string_to_datetime(s):
     """Converts string to datetime. Uses iso8601_to_datetime function for converting,
     if datetime format's will change it's needed to write new converter and be called here."""
-
     return iso8601_to_datetime(s)
 
 

@@ -16,7 +16,7 @@ def main():
 
     for _ in range(args.retry):
         try:
-            time_range = TimeRange(since, until)
+            time_range = TimeRange(since=since, until=until)
             repo = GithubRepository(owner, repo, branch)
             analyzer = GithubAnalyzer(repo=repo, time_range=time_range)
 

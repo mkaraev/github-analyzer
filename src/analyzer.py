@@ -7,6 +7,10 @@ class TimeRange:
     def __init__(self, since=None, until=None):
         self.since = since
         self.until = until
+        if since:
+            self.since = parser.string_to_datetime(since)
+        if until:
+            self.until = parser.string_to_datetime(until)
 
 
 class GithubRepository:
@@ -35,15 +39,13 @@ class GithubAnalyzer:
         self.time_range = time_range
 
         self.params = {
-            "sha": self.repo.branch
+            "sha": self.repo.branch,
+            "since": time_range.since,
+            "until": time_range.until
         }
-        if time_range.since:
-            self.params["since"] = parser.string_to_datetime(time_range.since)
-        if time_range.until:
-            self.params["until"] = parser.string_to_datetime(time_range.until)
 
     def get_most_active_contributors(self, n=30):
-        commits = github.get_commits(self.repo.owner, self.repo.name)
+        commits = github.get_commits(self.repo.owner, self.repo.name, **self.params)
         contributors = get_most_active_authors(commits, n)
         return contributors
 
