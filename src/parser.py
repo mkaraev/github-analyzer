@@ -10,7 +10,8 @@ def get_parser():
     parser.add_argument("--until", dest="until", type=str,
                         help="Date until which analyzing should be done. Format YYYY-MM-DD")
     parser.add_argument("--branch", dest="branch", default="master",
-                        help="Branch should be analyzed")
+                        help="Branch should be analyzed. Default is \"master\"")
+    parser.add_argument("--retry", dest="retry", type=int, help="Number of retries. Default is 1", default=1)
     return parser
 
 

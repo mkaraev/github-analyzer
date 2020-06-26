@@ -53,7 +53,9 @@ class GithubAnalyzer:
 
         filters = [range_filter_fabric(self.time_range.since, self.time_range.until), ]
         if old:
-            filters.append(old_filter_fabric(GithubAnalyzer.OLD_DAYS[data_type]))
+            filters.append(old_filter_fabric(
+                GithubAnalyzer.OLD_DAYS[data_type])
+            )
 
         get_data = apply_filters(filters)(GithubAnalyzer.github_api[data_type])
         pulls = get_data(self.repo.owner, self.repo.name, **params)

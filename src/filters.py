@@ -17,6 +17,7 @@ def get_most_active_authors(commits, n):
 
 def apply_filters(filters):
     def decorator(f):
+        @functools.wraps(f)
         def inner(*args, **kwargs):
             applier = filter_applier_fabric(filters)
             result = f(*args, **kwargs)
