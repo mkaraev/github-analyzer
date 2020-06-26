@@ -1,3 +1,5 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/fd694687c7789977bcb3/maintainability)](https://codeclimate.com/github/mkaraev/github-analyzer/maintainability)
+
 # github-analyzer
 ## Description
 Simple github analyzer.
