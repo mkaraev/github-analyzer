@@ -3,9 +3,6 @@ import functools
 
 from src.parser import string_to_datetime
 
-OLD_ISSUE_DAYS = 14
-OLD_PULLS_DAYS = 30
-
 
 def get_most_active_authors(commits, n):
     author_commits = dict()

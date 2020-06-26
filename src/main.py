@@ -1,6 +1,6 @@
 from src import filters, github, parser
 from src.parser import parse_url, get_parser
-from src.analyzer import GithubAnalyzer
+from src.analyzer import GithubAnalyzer, GithubRepository, TimeRange
 from texttable import Texttable
 
 
@@ -14,7 +14,9 @@ def main():
     branch = args.branch
 
     try:
-        analyzer = GithubAnalyzer(owner=owner, repo=repo, branch=branch, since=since, until=until)
+        time_range = TimeRange(since, until)
+        repo = GithubRepository(owner, repo, branch)
+        analyzer = GithubAnalyzer(repo=repo, time_range=time_range)
 
         contributors = analyzer.get_most_active_contributors()
         table = Texttable()
@@ -27,12 +29,12 @@ def main():
         table.add_rows(
             [
                 ["Description", "count"],
-                ["Open pulls created in given range: ", analyzer.get_pulls_stats(state="open")],
-                ["Closed pulls in given range: ", analyzer.get_pulls_stats(state="closed")],
-                ["Closed pulls in given range: ", analyzer.get_pulls_stats(state="open", old=True)],
-                ["Open issues created in given range: ", analyzer.get_issues_stats(state="open")],
-                ["Closed issues created in given range: ", analyzer.get_issues_stats(state="closed")],
-                ["Open issues created in given range: ", analyzer.get_issues_stats(state="open", old=True)],
+                ["Open pulls created in given range: ", analyzer.get_data(data_type="pulls", state="open")],
+                ["Closed pulls in given range: ", analyzer.get_data(data_type="pulls", state="closed")],
+                ["Closed pulls in given range: ", analyzer.get_data(data_type="pulls", state="open", old=True)],
+                ["Open issues created in given range: ", analyzer.get_data(data_type="issues", state="open")],
+                ["Closed issues created in given range: ", analyzer.get_data(data_type="issues", state="closed")],
+                ["Open issues created in given range: ", analyzer.get_data(data_type="issues", state="open", old=True)],
 
             ]
         )
