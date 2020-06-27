@@ -46,7 +46,14 @@ class GithubAnalyzer:
 
     def get_most_active_contributors(self, n=30):
         commits = github.get_commits(self.repo.owner, self.repo.name, **self.params)
-        contributors = get_most_active_authors(commits, n)
+        author_commits = dict()
+        for commit in commits:
+            if commit["author"]:
+                login = commit["author"]["login"]
+                cnt = author_commits.get(login, 0) + 1
+                author_commits[login] = cnt
+
+        contributors = sorted(list(author_commits.items()), key=lambda x: x[1], reverse=True)[:n]
         return contributors
 
     def get_data_count(self, data_type="pulls", state="open", old=False):

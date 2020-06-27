@@ -4,17 +4,6 @@ import functools
 from src.parser import string_to_datetime
 
 
-def get_most_active_authors(commits, n):
-    author_commits = dict()
-    for commit in commits:
-        if commit["author"]:
-            login = commit["author"]["login"]
-            cnt = author_commits.get(login, 0) + 1
-            author_commits[login] = cnt
-
-    return sorted(list(author_commits.items()), key=lambda x: x[1], reverse=True)[:n]
-
-
 def apply_filters(filters):
     def decorator(f):
         @functools.wraps(f)
