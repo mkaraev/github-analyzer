@@ -1,3 +1,5 @@
+import time
+
 from texttable import Texttable
 
 from src.analyzer import GithubAnalyzer, GithubRepository, TimeRange
@@ -13,18 +15,20 @@ def main():
     until = args.until
     branch = args.branch
 
-    for _ in range(args.retry):
+    for i in range(args.retry):
+        wait = i * 10
+        print(f"Try to get data after {wait} second")
+        time.sleep(wait)
         try:
             time_range = TimeRange(since=since, until=until)
             repo = GithubRepository(owner, repo, branch)
             analyzer = GithubAnalyzer(repo=repo, time_range=time_range)
 
             contributors = analyzer.get_most_active_contributors()
-            table = Texttable()
-            table.add_row(("Contributor", "Number of commits"))
+            contributors_table = Texttable()
+            contributors_table.add_row(("Contributor", "Number of commits"))
             for contributor in contributors:
-                table.add_row(contributor)
-            print(table.draw())
+                contributors_table.add_row(contributor)
 
             table = Texttable()
             table.add_rows(
@@ -40,6 +44,7 @@ def main():
 
                 ]
             )
+            print(contributors_table.draw())
             print(table.draw())
             return
         except Exception as error:
