@@ -49,7 +49,7 @@ class GithubAnalyzer:
         contributors = get_most_active_authors(commits, n)
         return contributors
 
-    def get_data(self, data_type="pulls", state="open", old=False):
+    def get_data_count(self, data_type="pulls", state="open", old=False):
         params = deepcopy(self.params)
         params["state"] = state
 

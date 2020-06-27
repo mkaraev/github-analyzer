@@ -9,6 +9,21 @@ For given repo and branch retrieves:
 * Number of opened/closed pulls which created in given time range
 * Number of "old" pulls which created in given time range
 * Number of opened/closed issues which created in given time range
+* Number of "old" issues which created in given time range
+
+## Project structure
+
+```
+main.py           - main module
+src
+├── __init__.py
+├── analyzer.py   - anylyzer module
+├── filters.py    - filters that can be applied
+├── github.py     - github api client
+└── parser.py     - module with different parsers
+
+```
+
 
 ## Usage
 ```
@@ -85,16 +100,14 @@ python main.py --url=https://github.com/OpenDiablo2/OpenDiablo2
 
 ```
 
-## Project structure
+## Building docker image and running it
 
 ```
-main.py           - main module
-src
-├── __init__.py
-├── analyzer.py   - anylyzer module
-├── filters.py    - filters that can be applied
-├── github.py     - github api client
-└── parser.py     - module with different parsers
+docker build -t analyzer .
+docker run --rm analyzer bash
+```
+Now you can run
+```
+python main.py --url=https://github.com/OpenDiablo2/OpenDiablo2
 
 ```
-

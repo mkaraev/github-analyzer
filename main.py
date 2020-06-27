@@ -1,6 +1,5 @@
 from texttable import Texttable
 
-from src import github
 from src.analyzer import GithubAnalyzer, GithubRepository, TimeRange
 from src.parser import parse_url, get_parser
 
@@ -31,13 +30,13 @@ def main():
             table.add_rows(
                 [
                     ["Description", "count"],
-                    ["Open pulls created in given range: ", analyzer.get_data(data_type="pulls", state="open")],
-                    ["Closed pulls in given range: ", analyzer.get_data(data_type="pulls", state="closed")],
-                    ["Old pulls in given range: ", analyzer.get_data(data_type="pulls", state="open", old=True)],
-                    ["Open issues created in given range: ", analyzer.get_data(data_type="issues", state="open")],
-                    ["Closed issues created in given range: ", analyzer.get_data(data_type="issues", state="closed")],
+                    ["Open pulls created in given range: ", analyzer.get_data_count(data_type="pulls", state="open")],
+                    ["Closed pulls in given range: ", analyzer.get_data_count(data_type="pulls", state="closed")],
+                    ["Old pulls in given range: ", analyzer.get_data_count(data_type="pulls", state="open", old=True)],
+                    ["Open issues created in given range: ", analyzer.get_data_count(data_type="issues", state="open")],
+                    ["Closed issues created in given range: ", analyzer.get_data_count(data_type="issues", state="closed")],
                     ["Old issues created in given range: ",
-                     analyzer.get_data(data_type="issues", state="open", old=True)],
+                     analyzer.get_data_count(data_type="issues", state="open", old=True)],
 
                 ]
             )
